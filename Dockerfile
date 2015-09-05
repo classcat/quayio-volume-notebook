@@ -27,7 +27,7 @@ RUN apt-get update && apt-get -y upgrade \
   && mkdir -p /var/run/sshd \
   && sed -i.bak -e "s/^PermitRootLogin\s*.*$/PermitRootLogin yes/" /etc/ssh/sshd_config
 
-COPY assets/supervisord.conf /etc/supervisor/supervisord.conf
+#COPY assets/supervisord.conf /etc/supervisor/supervisord.conf
 
 # OpenJDK 8
 #RUN apt-get install -y software-properties-common \
@@ -35,14 +35,14 @@ COPY assets/supervisord.conf /etc/supervisor/supervisord.conf
 #  && apt-get update \
 #  && apt-get install -y openjdk-8-jdk
 
-VOLUME /notebook
+VOLUME /root/notebook
 
 WORKDIR /opt
 COPY assets/cc-init.sh /opt/cc-init.sh
 
 #EXPOSE 22 80
 
-CMD /opt/cc-init.sh; /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
-
+CMD /opt/cc-init.sh; /usr/sbin/sshd -D
+#CMD /opt/cc-init.sh; /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
 
 ### End of Dockerfile ###

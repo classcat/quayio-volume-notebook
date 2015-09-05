@@ -66,7 +66,7 @@ EOF
 init 
 change_root_password
 put_public_key
-proc_supervisor
+#proc_supervisor
 
 exit 0
 
