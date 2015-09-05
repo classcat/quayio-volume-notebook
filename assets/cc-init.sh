@@ -1,11 +1,12 @@
 #!/bin/bash
 
 ########################################################################
-# ClassCat/Spark Asset files
+# ClassCat/Volume-Notebook Asset files
 # Copyright (C) 2015 ClassCat Co.,Ltd. All rights reserved.
 ########################################################################
 
 #--- HISTORY -----------------------------------------------------------
+# 05-sep-15 : fixed.
 #-----------------------------------------------------------------------
 
 
@@ -14,10 +15,11 @@
 ######################
 
 function init () {
-  echo "ClassCat Info >> initialization code for ClassCat/Spark"
+  echo "ClassCat Info >> initialization code for ClassCat/Volume-Notebook"
   echo "Copyright (C) 2015 ClassCat Co.,Ltd. All rights reserved."
   echo ""
 }
+
 
 ############
 ### SSHD ###
@@ -44,29 +46,11 @@ function put_public_key() {
 }
 
 
-##################
-### SUPERVISOR ###
-##################
-# See http://docs.docker.com/articles/using_supervisord/
-
-function proc_supervisor () {
-  cat > /etc/supervisor/conf.d/supervisord.conf <<EOF
-[program:ssh]
-command=/usr/sbin/sshd -D
-
-[program:rsyslog]
-command=/usr/sbin/rsyslogd -n
-EOF
-}
-
-
-
 ### ENTRY POINT ###
 
 init 
 change_root_password
 put_public_key
-#proc_supervisor
 
 exit 0
 
